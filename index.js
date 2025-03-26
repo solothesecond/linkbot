@@ -90,4 +90,4 @@ client.on(Events.InteractionCreate, async (interaction) => {
   }
 });
 
-client.login('MTM1NDU2OTU3Mzk3ODA3OTQ1Mw.GA8RtD.TrK3tyrJoPlod2i_3IKp9ZMTFHw1JkgnHMwuqc'); // put your discord bot token here
+client.login('MTM1NDU2OTU3Mzk3ODA3OTQ1Mw.GfvS7x.QD9bb5yqhfORtfJpWRIvEhPKQHgEUXvBcjSDI8'); // put your discord bot token here
