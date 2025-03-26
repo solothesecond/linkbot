@@ -7,17 +7,15 @@
 const { Client, GatewayIntentBits, Partials, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Events } = require('discord.js');
 const fs = require('fs');
 
-const jason1 = JSON.parse(fs.readFileSync('./put-a-json-file-name-here.json', 'utf8')); // put how many different types of links you want (for example: fastly, freedns, wildcards, etc.)
-const jason2 = JSON.parse(fs.readFileSync('./put-a-json-file-name-here.json', 'utf8'));
-const jason3 = JSON.parse(fs.readFileSync('./put-a-json-file-name-here.json', 'utf8'));
-const jason4 = JSON.parse(fs.readFileSync('./put-a-json-file-name-here.json', 'utf8'));
+const jason1 = JSON.parse(fs.readFileSync('.fastly.json', 'utf8')); // put how many different types of links you want (for example: fastly, freedns, wildcards, etc.)
+const jason2 = JSON.parse(fs.readFileSync('.normal.json', 'utf8'));
 
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent], // this is the intents it requires, set this up on your discord bot
   partials: [Partials.Channel]
 });
 
-const OWNER_ID = 'put your discord id here'; // put your user id here
+const OWNER_ID = '1317242584170500107'; // put your user id here
 const MAX_USES_PER_DAY = 2; // max amount of times each button can be used
 const usageData = {};
 
@@ -32,26 +30,20 @@ function checkAndResetUsage(userId, buttonId) {
   }
 }
 
-client.once(Events.ClientReady, () => {
-  console.log(`your now hackered inside of ${client.user.tag}!`);
-});
 
 client.on(Events.MessageCreate, async (message) => {
   if (!message.guild) return;
   if (message.author.bot) return;
   
-  if (message.content.trim() === '--panel' && message.author.id === OWNER_ID) {
+  if (message.content.trim() === '!!panel' && message.author.id === OWNER_ID) {
     const embed = new EmbedBuilder()
       .setTitle('Link Generator') // embed title
-      .setDescription('click a button below to generate a link!!') // embed description
+      .setDescription('click a button below to get a link') // embed description
       .setColor('DarkerGrey'); // color
-      .setFooter({ text: 'bot by szvy - discord.gg/szvy' });
     const row = new ActionRowBuilder()
       .addComponents(
-        new ButtonBuilder().setCustomId('genjason1').setLabel('link type 1').setStyle(ButtonStyle.Secondary), // buttons
-        new ButtonBuilder().setCustomId('genjason2').setLabel('link type 2').setStyle(ButtonStyle.Secondary),
-        new ButtonBuilder().setCustomId('genjason3').setLabel('link type 3').setStyle(ButtonStyle.Secondary),
-        new ButtonBuilder().setCustomId('genjason4').setLabel('link type 4').setStyle(ButtonStyle.Secondary),
+        new ButtonBuilder().setCustomId('genjason1').setLabel('fastly').setStyle(ButtonStyle.Secondary), // buttons
+        new ButtonBuilder().setCustomId('genjason2').setLabel('normal').setStyle(ButtonStyle.Secondary),
       );
 
     await message.channel.send({ embeds: [embed], components: [row] });
@@ -71,10 +63,10 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
   let chosenLinks; // sets what links it chooses per button you click
   switch (customId) {
-    case 'genjason1':
+    case 'https://learningonline.global.ssl.fastly.net':
       chosenLinks = jason1;
       break;
-    case 'genjason2':
+    case 'https://schoollearning.soloo.fun':
       chosenLinks = jason2;
       break;
     case 'genjason3':
@@ -94,8 +86,8 @@ client.on(Events.InteractionCreate, async (interaction) => {
     await interaction.reply({ content: 'check your DMs for your link! :D', ephemeral: true }); // what it sends to your user (not in dms)
   } catch (error) {
     usageData[user.id][customId].count -= 1;
-    await interaction.reply({ content: 'yo dms are off or some shit idk man', ephemeral: true }); // message if it cant dm the user
+    await interaction.reply({ content: 'yo dms are off or something idk man', ephemeral: true }); // message if it cant dm the user
   }
 });
 
-client.login('put your discord bot token here'); // put your discord bot token here
+client.login('MTM1NDU2OTU3Mzk3ODA3OTQ1Mw.GD35HE.dMCuiRDxuxqis43AKywz-qYv-r7lzSI1ZrQGXk'); // put your discord bot token here
